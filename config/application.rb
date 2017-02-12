@@ -12,5 +12,6 @@ module Avalon
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += %W(#{config.root}/app/models/characters)
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
