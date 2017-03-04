@@ -1,0 +1,18 @@
+<%= form_for :character, url: characters_path do |f| %>
+  <% if @character.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @character.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

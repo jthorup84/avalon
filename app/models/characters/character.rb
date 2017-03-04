@@ -1,4 +1,7 @@
 class Character < ActiveRecord::Base
+  has_one :game
+  validates :name, presence: true
+
   def knowledge(characters)
     basic_knowledge + special_knowledge(characters)
   end

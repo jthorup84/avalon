@@ -1,0 +1,32 @@
+<h3>Game Code: <%= @game.code%></h1>
+People who have joined:
+<ul>
+  <% @game.characters.each do |character| %>
+    <li>
+      <%= "#{character.name}#{' (you)' if character == @character}" %>
+      <% unless character == @character %>
+        <%= link_to 'Remove', character_path(character.id), :method => :delete %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if @game.characters.count > 4 %>
+  <%= form_for @game do |f| %>
+    <%= f.hidden_field :active, value: '1' %>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+<% end %>
+
+
+
+
+<script>
+  // $(document).ready(function() {
+  //   setTimeout(function() {
+  //     location.reload()
+  //   }, 5000)
+  // })
+</script>
