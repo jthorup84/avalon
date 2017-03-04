@@ -1,5 +1,6 @@
 class GameBuilder
   attr_accessor :characters
+
   def initialize(game)
     @characters = game.characters
   end
