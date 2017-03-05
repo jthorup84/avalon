@@ -1,0 +1,21 @@
+<h4>For <%= @character.name %>'s eyes only!</h4>
+<ul>
+  <% @knowledge.each do |message| %>
+    <li> <%= message %> </li>
+  <% end %>
+</ul>
+
+<%= form_for @game do |f| %>
+  <%= f.hidden_field :active, value: '0' %>
+  <p>
+    <%= f.submit "Stop Game" %>
+  </p>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    setTimeout(function() {
+      location.reload()
+    }, 5000)
+  })
+</script>

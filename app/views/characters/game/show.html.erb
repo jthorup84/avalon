@@ -15,7 +15,7 @@ People who have joined:
   <%= form_for @game do |f| %>
     <%= f.hidden_field :active, value: '1' %>
     <p>
-      <%= f.submit %>
+      <%= f.submit "Start Game" %>
     </p>
   <% end %>
 <% end %>
@@ -24,9 +24,9 @@ People who have joined:
 
 
 <script>
-  // $(document).ready(function() {
-  //   setTimeout(function() {
-  //     location.reload()
-  //   }, 5000)
-  // })
+  $(document).ready(function() {
+    setTimeout(function() {
+      location.reload()
+    }, 5000)
+  })
 </script>

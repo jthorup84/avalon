@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   resources :characters, only: [:new, :create, :destroy] do
     resource :game, only: :show, controller: 'characters/game'
   end
-  resources :games, only: [:update]
+  resources :games, only: :update do
+    resources :characters, only: :show, controller: 'games/characters'
+  end
 end

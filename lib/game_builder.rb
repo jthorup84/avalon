@@ -5,7 +5,7 @@ class GameBuilder
     @characters = game.characters
   end
 
-  def assign_random_roles(special_good: [Merlin], special_bad: [])
+  def assign_random_roles(special_good: ["Merlin"], special_bad: [])
     roles = role_list(special_good, special_bad).shuffle
     characters.each do |character|
       character.update(type: roles.pop)
@@ -14,8 +14,8 @@ class GameBuilder
 
   private
     def role_list(special_good, special_bad)
-      good_list = special_good + Array.new(10, Character)
-      bad_list = special_bad + Array.new(10, BadGuy)
+      good_list = special_good + Array.new(10, "Character")
+      bad_list = special_bad + Array.new(10, "BadGuy")
 
       good_list.first(good_guy_count_hash[characters.count.to_s]) +
       bad_list.first(bad_guy_count_hash[characters.count.to_s])

@@ -1,8 +1,8 @@
 <%= form_for :character, url: characters_path do |f| %>
-  <% if @character.errors.any? %>
+  <% if @character.errors.present? || flash[:notice].present? %>
       <div id="error_explanation">
         <ul>
-          <% @character.errors.full_messages.each do |msg| %>
+          <% [*@character.errors.full_messages, *flash[:notice]].each do |msg| %>
             <li><%= msg %></li>
           <% end %>
         </ul>
@@ -13,6 +13,10 @@
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.submit %>
+    <%= label_tag 'code' %><br>
+    <%= text_field_tag 'game[code]', nil, placeholder: "if you want to join" %>
+  </p>
+  <p>
+    <%= f.submit "New/Join Game" %>
   </p>
 <% end %>

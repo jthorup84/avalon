@@ -4,6 +4,7 @@ module Characters
 
     def show
       @game = Game.includes(:characters).find @character.game_id
+      redirect_to game_character_path(@game, @character) if @game.active
     end
 
     private

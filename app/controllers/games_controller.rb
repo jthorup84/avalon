@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
   def update
-    binding.pry
     @game = Game.find params[:id]
     @game.update(game_params)
+    GameBuilder.new(@game).assign_random_roles
     redirect_to :back
   end
 
