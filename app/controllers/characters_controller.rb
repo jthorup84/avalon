@@ -30,10 +30,10 @@ class CharactersController < ApplicationController
     if @game.blank? && game_params[:code].present?
       flash[:notice] = "Game with code #{game_params[:code]} does not exist."
       true
-    elsif @game.active
+    elsif @game.present? && @game.active
       flash[:notice] = "Game with code #{game_params[:code]} started without you."
       true
-    elsif @game.characters.count == 10
+    elsif @game.present? && @game.characters.count == 10
       flash[:notice] = "Game with code #{game_params[:code]} is full."
       true
     else
