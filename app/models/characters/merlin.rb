@@ -1,4 +1,8 @@
 class Merlin < Character
+  def message_for_percival
+    name
+  end
+
   private
     def special_knowledge(characters)
       [

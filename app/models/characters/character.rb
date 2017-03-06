@@ -10,6 +10,10 @@ class Character < ActiveRecord::Base
     nil
   end
 
+  def message_for_percival
+    nil
+  end
+
   def message_for_merlin
     message_for_bad_guy
   end
