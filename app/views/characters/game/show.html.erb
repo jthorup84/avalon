@@ -1,4 +1,18 @@
 <h3>Game Code: <%= @game.code%></h1>
+<%= link_to "Configure Game Here", edit_character_game_path %>
+<% if @game.special_bad.present? %>
+<p>
+  Special Bad Characters: <%= @game.special_bad.join(", ") %>
+</p>
+<% end %>
+<% if @game.special_good.present? %>
+<p>
+  Special Good Characters: <%= @game.special_good.join(", ") %>
+</p>
+<% end %>
+<p>
+  Number of Bad Characters: <%= @game.bad_number %>
+</p>
 People who have joined:
 <ul>
   <% @game.characters.each do |character| %>

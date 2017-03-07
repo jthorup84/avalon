@@ -5,7 +5,8 @@ module Games
     def show
       @character = Character.find params[:id]
       redirect_to character_game_path(@character) unless @game.active
-      @knowledge = @character.knowledge(@game.characters - [@character])
+      characters = @game.characters - [@character]
+      @knowledge = @character.knowledge(characters)
     end
 
     private

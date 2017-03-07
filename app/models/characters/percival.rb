@@ -4,7 +4,7 @@ class Percival < Character
       [
         "You are also PERCIVAL",
         "Try to be supportive of Merlin without exposing him.",
-        "One of the folling players is Merlin:"
+        "One of the following players is Merlin:"
       ] + characters.collect(&:message_for_percival).compact
     end
 end

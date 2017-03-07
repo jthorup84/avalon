@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   has_many :characters
+  validates_presence_of :bad_number
 
   def self.default_scope
     where(arel_table[:created_at].gt(DateTime.now - 1.day))
@@ -7,6 +8,14 @@ class Game < ActiveRecord::Base
 
   def self.build
     create(code: new_code)
+  end
+
+  def special_character_hash
+    {
+      special_good: special_good,
+      special_bad: special_bad,
+      bad_number: bad_number
+    }.compact
   end
 
   private
