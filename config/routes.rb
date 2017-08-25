@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :games, only: [:update] do
     resources :characters, only: :show, controller: 'games/characters'
   end
+
+  resource :color, only: :show
 end
