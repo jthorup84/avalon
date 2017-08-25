@@ -1,6 +1,6 @@
 class ColorsController < ActionController::Base
   def show
-    colors = ["red", "yellow", "blue", "green", "purple", "brown", "white"]
-    render json: {color_of_the_day: colors.sample}
+    numbers = Array(0..255)
+    render json: {color_of_the_day: [numbers.sample, numbers.sample, numbers.sample]}
   end
 end
