@@ -3,6 +3,10 @@ class BadGuy < Character
     "#{name} is a bad guy."
   end
 
+  def bad_guy?
+    true
+  end
+
   private
     def basic_knowledge
       [

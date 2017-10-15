@@ -6,6 +6,10 @@ class Character < ActiveRecord::Base
     basic_knowledge + special_knowledge(characters)
   end
 
+  def bad_guy?
+    false
+  end
+
   def message_for_bad_guy
     nil
   end

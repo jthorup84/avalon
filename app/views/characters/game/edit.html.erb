@@ -23,7 +23,9 @@
   <%= check_box_tag "game[special_bad][]", "Morgana", (@game.special_bad || []).include?("Morgana") %>
   <%= f.label "Morgana (appears as Merlin)" %></br>
   <%= check_box_tag "game[special_bad][]", "Oberon", (@game.special_bad || []).include?("Oberon") %>
-  <%= f.label "Oberon (unknown to evil)" %>
+  <%= f.label "Oberon (unknown to evil)" %></br>
+  <%= check_box_tag "game[special_bad][]", "SecretHitler", (@game.special_bad || []).include?("SecretHitler") %>
+  <%= f.label "Secret Hitler" %>
   <p>
     <%= f.submit "Update Game" %><%= link_to "Back To Game", character_game_path %>
   </p>

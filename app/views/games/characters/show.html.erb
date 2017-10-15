@@ -1,9 +1,13 @@
 <h4>For <%= @character.name %>'s eyes only!</h4>
-<ul>
-  <% @knowledge.each do |message| %>
+<%= @knowledge.first %></br>
+<button class="accordion">Toggle Special Knowledge</button>
+<div class="panel" style="display: none">
+  <ul>
+    <% @knowledge[1..-1].each do |message| %>
     <li> <%= message %> </li>
-  <% end %>
-</ul>
+    <% end %>
+  </ul>
+</div>
 
 <%= form_for @game do |f| %>
   <%= f.hidden_field :active, value: '0' %>
@@ -16,6 +20,21 @@
   $(document).ready(function() {
     setTimeout(function() {
       location.reload()
-    }, 10000)
+    }, 20000)
   })
+
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function(){
+          /* Toggle between hiding and showing the active panel */
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      }
+  }
 </script>

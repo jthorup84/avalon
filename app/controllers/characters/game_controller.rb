@@ -8,7 +8,11 @@ module Characters
 
     def update
       @game = Game.find @character.game_id
-      @game.update(game_params)
+      @game.update(
+        bad_number: game_params[:bad_number],
+        special_good: game_params.fetch(:special_good, []),
+        special_bad: game_params.fetch(:special_bad, [])
+      )
       if @game.errors.blank?
         flash[:notice] = "Game Updated!"
       else

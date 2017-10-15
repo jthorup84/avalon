@@ -23,7 +23,7 @@ class CharactersController < ApplicationController
 
   private
   def check_for_game
-    @game = Game.where(game_params).first
+    @game = Game.where(code: game_params[:code].downcase).first
   end
 
   def cant_join?
