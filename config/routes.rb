@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
 
   resource :color, only: :show
+  resource :light_setting, only: [:show, :update]
 end
