@@ -1,22 +1,29 @@
 <%= form_for :character, url: characters_path do |f| %>
   <% if @character.errors.present? || flash[:notice].present? %>
-      <div id="error_explanation">
-        <ul>
-          <% [*@character.errors.full_messages, *flash[:notice]].each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+    <div id='error_explanation' class='callout alert'>
+      <h5>Unable to add you to the game</h5>
+      <% [*@character.errors.full_messages, *flash[:notice]].each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+  <div class='grid-container'>
+    <div class='grid-x grid-padding-x'>
+      <div class='medium-6 cell'>
+        <%= f.label :name do %>
+          Name
+          <%= f.text_field :name, placeholder: 'Please use your real name - or don\'t', 'aria-describedby' => 'passwordHelpText' %>
+        <% end %>
       </div>
-    <% end %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= label_tag 'code' %><br>
-    <%= text_field_tag 'game[code]', nil, placeholder: "if you want to join" %>
-  </p>
-  <p>
-    <%= f.submit "New/Join Game" %>
-  </p>
+      <div class='medium-6 cell'>
+        <%= label_tag 'code' do %>
+          Code
+          <%= text_field_tag 'game[code]', nil, placeholder: 'Code' %>
+        <% end %>
+      </div>
+      <div class='medium-1 cell'>
+        <%= f.submit 'New/Join Game', class: 'button' %>
+      </div>
+    </div>
+  </div>
 <% end %>

@@ -1,39 +1,40 @@
-<h3>Game Code: <%= @game.code%></h1>
-<%= link_to "Configure Game Here", edit_character_game_path %>
-<% if @game.special_bad.present? %>
-<p>
-  Special Bad Characters: <%= @game.special_bad.join(", ") %>
-</p>
-<% end %>
-<% if @game.special_good.present? %>
-<p>
-  Special Good Characters: <%= @game.special_good.join(", ") %>
-</p>
-<% end %>
-<p>
-  Number of Bad Characters: <%= @game.bad_number %>
-</p>
-People who have joined:
-<ul>
-  <% @game.characters.each do |character| %>
-    <li>
-      <%= "#{character.name}#{' (you)' if character == @character}" %>
-      <% unless character == @character %>
-        <%= link_to 'Remove', character_path(character.id), :method => :delete %>
-      <% end %>
-    </li>
+<div class="cell">
+  <h3>Game Code: <span class="label" style="font-size:1.2em;"><%= @game.code%></span></h3>
+  <%= link_to "Configure", edit_character_game_path, class: 'button' %>
+  <% if @game.special_bad.present? %>
+  <p>
+    Special Bad Characters: <%= @game.special_bad.join(", ") %>
+  </p>
   <% end %>
-</ul>
-
-<% if @game.characters.count > 4 %>
-  <%= form_for @game do |f| %>
-    <%= f.hidden_field :active, value: '1' %>
-    <p>
-      <%= f.submit "Start Game" %>
-    </p>
+  <% if @game.special_good.present? %>
+  <p>
+    Special Good Characters: <%= @game.special_good.join(", ") %>
+  </p>
   <% end %>
-<% end %>
+  <p>
+    Number of Bad Characters: <span class="label alert"><%= @game.bad_number %></span>
+  </p>
+  People who have joined:
+  <ul>
+    <% @game.characters.each do |character| %>
+      <li>
+        <%= "#{character.name}#{' (you)' if character == @character}" %>
+        <% unless character == @character %>
+          <%= link_to 'Remove', character_path(character.id), :method => :delete %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 
+  <% if @game.characters.count > 4 %>
+    <%= form_for @game do |f| %>
+      <%= f.hidden_field :active, value: '1' %>
+      <p>
+        <%= f.submit "Start Game", class: "button success" %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
 
 
 
