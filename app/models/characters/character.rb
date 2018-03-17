@@ -2,6 +2,10 @@ class Character < ActiveRecord::Base
   has_one :game
   validates :name, presence: true
 
+  after_create_commit { GameCharacterBroadcastJob.perform_now self, :joined }
+  after_destroy { GameCharacterBroadcastJob.perform_now self, :left }
+  after_destroy { CharacterBroadcastJob.perform_now self, :kicked }
+
   def knowledge(characters)
     basic_knowledge + special_knowledge(characters)
   end

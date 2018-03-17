@@ -1,0 +1,38 @@
+run.config:
+  engine: ruby
+
+  extra_packages:
+    - nodejs
+    - pkgconf
+    - libxml2
+    - nginx
+    # - lbxslt
+
+  # build.triggers:
+  #   - Gemfile
+  #   - Gemfile.lock
+
+deploy.config:
+  extra_steps:
+    - rake assets:precompile
+  before_live:
+    web.main:
+      - rake db:setup_or_migrate
+
+data.db:
+  image: nanobox/postgresql:9.5
+
+web.main:
+  start:
+    nginx: nginx -c /app/config/nginx.conf
+    puma: bundle exec puma -C /app/config/puma.rb
+
+  writable_dirs:
+    - tmp
+    - log
+
+  log_watch:
+    rails: 'log/production.log'
+
+data.redis:
+  image: nanobox/redis:3.2

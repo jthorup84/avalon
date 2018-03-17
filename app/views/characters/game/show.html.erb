@@ -15,14 +15,9 @@
     Number of Bad Characters: <span class="label alert"><%= @game.bad_number %></span>
   </p>
   People who have joined:
-  <ul>
+  <ul id="character-list" data-game="<%=@game.id%>" >
     <% @game.characters.each do |character| %>
-      <li>
-        <%= "#{character.name}#{' (you)' if character == @character}" %>
-        <% unless character == @character %>
-          <%= link_to 'Remove', character_path(character.id), :method => :delete %>
-        <% end %>
-      </li>
+      <%= render partial: "character", locals: { character: character, yourself: @character } %>
     <% end %>
   </ul>
 
@@ -39,9 +34,68 @@
 
 
 <script>
-  $(document).ready(function() {
-    setTimeout(function() {
-      location.reload()
-    }, 5000)
-  })
+  const game = <%= @game.to_json.html_safe %>;
+  const character = <%= @character.to_json.html_safe %>;
+  console.log( game );
+  console.log( character );
+  App[`game${game.id}`] = App.cable.subscriptions.create({ channel: "GameCharactersChannel", game: game.id },{
+    connected: function(){
+      // Called when the subscription is ready for use on the server
+      console.log(`game:${game.id}-characters`, 'connected');
+    },
+
+    disconnected: function() {
+      // Called when the subscription has been terminated by the server
+      console.log(`game:${game.id}-characters`, 'disconnected');
+    },
+
+    received: function(data) {
+      // Called when there's incoming data on the websocket for this channel
+      console.log(`game: ${game.id}`, data);
+      switch( data.status ) {
+        case "joined": $(`#character-list[data-game='${game.id}']`).append(data.characterHtml); break;
+        case "left": $(`#character-list li[data-character='${data.character.id}']`).remove(); break;
+      }
+    }
+
+  });
+
+  App[`character${character.id}`] = App.cable.subscriptions.create({ channel: "CharacterChannel", character: character.id },{
+    connected: function(){
+      // Called when the subscription is ready for use on the server
+      console.log(`character:${character.id}`, 'connected');
+    },
+
+    disconnected: function() {
+      // Called when the subscription has been terminated by the server
+      console.log(`character:${character.id}`, 'disconnected');
+    },
+
+    received: function(data) {
+      // Called when there's incoming data on the websocket for this channel
+      console.log(`character: ${character.id}`, data);
+      switch( data.status ) {
+        case "kicked":
+          alert( "you were kicked out" );
+          document.location.href="/"; //redirect home
+          break;
+      }
+    }
+
+  });
+
+  $(document).on('turbolinks:load', function() {
+    $("#character-list").on('click', '.character-remove', function(event) {
+      console.log( 'ohai' );
+      $target = $(event.currentTarget);
+      console.log($target.parents('li').data().character);
+
+      App[`game${game.id}`].send({
+        characterId: $target.parents('li').data().character,
+        action: "kick"
+      });
+
+      event.preventDefault();
+    });
+  });
 </script>
