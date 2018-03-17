@@ -1,40 +1,32 @@
-<h4>For <%= @character.name %>'s eyes only!</h4>
-<%= @knowledge.first %></br>
-<button class="accordion">Toggle Special Knowledge</button>
-<div class="panel" style="display: none">
-  <ul>
-    <% @knowledge[1..-1].each do |message| %>
-    <li> <%= message %> </li>
-    <% end %>
+<div class="cell">
+  <h4>For <%= @character.name %>'s eyes only!</h4>
+  <%= @knowledge.first %></br>
+  <ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item" data-accordion-item>
+      <a href="#" class="accordion-title">Toggle Special Knowledge</a>
+      <div class="accordion-content" data-tab-content>
+        <ul>
+          <% @knowledge[1..-1].each do |message| %>
+          <li> <%= message %> </li>
+          <% end %>
+        </ul>
+      </div>
+    </li>
   </ul>
+
+  <%= form_for @game do |f| %>
+    <%= f.hidden_field :active, value: '0' %>
+    <p>
+      <%= f.submit "Stop Game", class: "button alert" %>
+    </p>
+  <% end %>
+
+  <script>
+    $(document).ready(function() {
+      setTimeout(function() {
+        location.reload()
+      }, 20000)
+
+    })
+  </script>
 </div>
-
-<%= form_for @game do |f| %>
-  <%= f.hidden_field :active, value: '0' %>
-  <p>
-    <%= f.submit "Stop Game" %>
-  </p>
-<% end %>
-
-<script>
-  $(document).ready(function() {
-    setTimeout(function() {
-      location.reload()
-    }, 20000)
-  })
-
-  var acc = document.getElementsByClassName("accordion");
-  var i;
-
-  for (i = 0; i < acc.length; i++) {
-      acc[i].onclick = function(){
-          /* Toggle between hiding and showing the active panel */
-          var panel = this.nextElementSibling;
-          if (panel.style.display === "block") {
-              panel.style.display = "none";
-          } else {
-              panel.style.display = "block";
-          }
-      }
-  }
-</script>

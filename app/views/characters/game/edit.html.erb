@@ -1,32 +1,34 @@
-<%= form_for @game, url: character_game_path  do |f| %>
-  <% if @game.errors.present? || flash[:notice].present? %>
-      <div id="error_explanation">
-        <ul>
-          <% [*@game.errors.full_messages, *flash[:notice]].each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  <p>
-    <%= f.label "Number of Bad Characters" %><br>
-    <%= f.text_field :bad_number %>
-  </p>
-  <h4>Special Good Characters</h4>
-  <%= check_box_tag "game[special_good][]", "Merlin", @game.special_good.include?("Merlin") %>
-  <%= f.label "Merlin (knows evil, must remain hidden)" %></br>
-  <%= check_box_tag "game[special_good][]", "Percival", @game.special_good.include?("Percival") %>
-  <%= f.label "Percival (knows Merlin)" %>
-  <h4>Special Bad Characters</h4>
-  <%= check_box_tag "game[special_bad][]", "Mordred", (@game.special_bad || []).include?("Mordred") %>
-  <%= f.label "Mordred (unknown to Merlin)" %></br>
-  <%= check_box_tag "game[special_bad][]", "Morgana", (@game.special_bad || []).include?("Morgana") %>
-  <%= f.label "Morgana (appears as Merlin)" %></br>
-  <%= check_box_tag "game[special_bad][]", "Oberon", (@game.special_bad || []).include?("Oberon") %>
-  <%= f.label "Oberon (unknown to evil)" %></br>
-  <%= check_box_tag "game[special_bad][]", "SecretHitler", (@game.special_bad || []).include?("SecretHitler") %>
-  <%= f.label "Secret Hitler" %>
-  <p>
-    <%= f.submit "Update Game" %><%= link_to "Back To Game", character_game_path %>
-  </p>
-<% end %>
+<div class="cell">
+  <%= form_for @game, url: character_game_path  do |f| %>
+    <% if @game.errors.present? || flash[:notice].present? %>
+        <div id="error_explanation">
+          <ul>
+            <% [*@game.errors.full_messages, *flash[:notice]].each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <p>
+      <%= f.label "Number of Bad Characters" %><br>
+      <%= f.text_field :bad_number %>
+    </p>
+    <h4>Special Good Characters</h4>
+    <%= check_box_tag "game[special_good][]", "Merlin", @game.special_good.include?("Merlin") %>
+    <%= f.label "Merlin (knows evil, must remain hidden)" %></br>
+    <%= check_box_tag "game[special_good][]", "Percival", @game.special_good.include?("Percival") %>
+    <%= f.label "Percival (knows Merlin)" %>
+    <h4>Special Bad Characters</h4>
+    <%= check_box_tag "game[special_bad][]", "Mordred", (@game.special_bad || []).include?("Mordred") %>
+    <%= f.label "Mordred (unknown to Merlin)" %></br>
+    <%= check_box_tag "game[special_bad][]", "Morgana", (@game.special_bad || []).include?("Morgana") %>
+    <%= f.label "Morgana (appears as Merlin)" %></br>
+    <%= check_box_tag "game[special_bad][]", "Oberon", (@game.special_bad || []).include?("Oberon") %>
+    <%= f.label "Oberon (unknown to evil)" %></br>
+    <%= check_box_tag "game[special_bad][]", "SecretHitler", (@game.special_bad || []).include?("SecretHitler") %>
+    <%= f.label "Secret Hitler" %>
+    <div class="button-group">
+      <%= f.submit "Update", class: "button warning" %><%= link_to "Back To Game", character_game_path, class: "button" %>
+    </div>
+  <% end %>
+</div>

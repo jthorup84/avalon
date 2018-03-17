@@ -1,15 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Social Deduction</title>
-    <%= csrf_meta_tags %>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <title><%= content_for?(:title) ? yield(:title) : "Social Deduction" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <h3><%= link_to "New Game", root_path %></h3>
-    <%= yield %>
+
+    <div class="off-canvas-wrapper">
+      <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+        <div class="grid-x grid-padding-x" style="margin-top:20pt">
+          <div class="cell auto"><%= link_to "Start a new game", root_path, class: "cell auto" %></div>
+        </div>
+        <hr/>
+        <div class="grid-x grid-padding-x">
+          <div class="cell auto"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&start=42">Don"t click this</a></div>
+        </div>
+        <blockquote>
+          Those people who think they know everything are a great annoyance to those of us who do.
+          <cite>Isaac Asimov</cite>
+        </blockquote>
+      </div>
+      <div class="off-canvas-content" data-off-canvas-content>
+        <ul class="menu icons icon-left" style="font-size:2em;">
+          <li><a data-toggle="offCanvas"><i class="fi-list"></i></a></li>
+        </ul>
+
+        <div class="grid-x grid-padding-x">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
