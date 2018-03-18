@@ -23,22 +23,24 @@ Things you may want to cover:
 
 * ...
 
-Setting Up
-`docker-compose run social-deduction rails db:setup`
+### Setting Up
+download [nanobox](https://nanobox.io/)
+
+`nanobox dns add local nano.local`
+`nanobox start`
 
 Starting
-`docker-compose up -d`
-once running you can access via <http://localhost:3000>
+`nanobox run rails server -b 0.0.0.0`
+once running you can access via <http://nano.local:3000>
 
 Stopping
-`docker-compose down`
+just `CTRL + C` the nanobox server running
 
-__In order for the following commands to work the application needs to be running__
 logging
-`docker-compose logs -f social-deduction`
+nanobox stays in the forground - so you can see those logs
 
 terminal
-`docker-compose exec social-deduction bash`
+`nanobox run`
 
 console
-`docker-compose exec social-deduction rails c`
+`nanobox run rails c`
