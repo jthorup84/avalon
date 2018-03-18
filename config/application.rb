@@ -19,6 +19,6 @@ module Avalon
       /(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)/
     ]
 
-    config.web_console.whitelisted_ips = "172.20.0.1"
+    config.web_console.whitelisted_ips = "172.20.0.1" if Rails.env.development?
   end
 end
