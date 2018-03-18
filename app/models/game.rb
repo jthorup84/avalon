@@ -2,6 +2,8 @@ class Game < ActiveRecord::Base
   has_many :characters
   validates_presence_of :bad_number
 
+  after_update { GameBroadcastJob.perform_now self, :updated }
+
   def self.default_scope
     where(arel_table[:created_at].gt(DateTime.now - 1.day))
   end
@@ -16,6 +18,10 @@ class Game < ActiveRecord::Base
       special_bad: special_bad,
       bad_number: bad_number
     }.compact
+  end
+
+  def character_count_check
+    GameBroadcastJob.perform_now self, :updated
   end
 
   private

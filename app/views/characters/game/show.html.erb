@@ -1,18 +1,10 @@
 <div class="cell">
   <h3>Game Code: <span class="label" style="font-size:1.2em;"><%= @game.code%></span></h3>
   <%= link_to "Configure", edit_character_game_path, class: 'button' %>
-  <% if @game.special_bad.present? %>
+  <div id="game-bad-chars"><%= render partial: "bad_chars", locals: { game: @game } %></div>
+  <div id="game-good-chars"><%= render partial: "good_chars", locals: { game: @game } %></div>
   <p>
-    Special Bad Characters: <%= @game.special_bad.join(", ") %>
-  </p>
-  <% end %>
-  <% if @game.special_good.present? %>
-  <p>
-    Special Good Characters: <%= @game.special_good.join(", ") %>
-  </p>
-  <% end %>
-  <p>
-    Number of Bad Characters: <span class="label alert"><%= @game.bad_number %></span>
+    Number of Bad Characters: <span class="label alert" id="game-bad-number"><%= @game.bad_number %></span>
   </p>
   People who have joined:
   <ul id="character-list" data-game="<%=@game.id%>" >
@@ -21,13 +13,9 @@
     <% end %>
   </ul>
 
-  <% if @game.characters.count > 4 %>
-    <%= form_for @game do |f| %>
-      <%= f.hidden_field :active, value: '1' %>
-      <p>
-        <%= f.submit "Start Game", class: "button success" %>
-      </p>
-    <% end %>
+  <%= form_for @game do |f| %>
+    <%= f.hidden_field :active, value: '1' %>
+    <div id="game-start"><%= render partial: "start", locals: { game: @game } %></div>
   <% end %>
 </div>
 
@@ -36,61 +24,20 @@
 <script>
   const game = <%= @game.to_json.html_safe %>;
   const character = <%= @character.to_json.html_safe %>;
-  console.log( game );
-  console.log( character );
-  App[`game${game.id}`] = App.cable.subscriptions.create({ channel: "GameCharactersChannel", game: game.id },{
-    connected: function(){
-      // Called when the subscription is ready for use on the server
-      console.log(`game:${game.id}-characters`, 'connected');
-    },
 
-    disconnected: function() {
-      // Called when the subscription has been terminated by the server
-      console.log(`game:${game.id}-characters`, 'disconnected');
-    },
+  // app/assets/javascript/channels/game.coffee
+  if( typeof activateGameChannel == "function" ) { App["game"] = activateGameChannel( game ); }
+  // app/assets/javascript/channels/character.coffee
+  if( typeof activateCharacterChannel == "function" ) { App["character"] = activateCharacterChannel( character ); }
+  // app/assets/javascript/channels/game_character.coffee
+  if( typeof activateGameCharactersChannel == "function" ) { App["gameCharacters"] = activateGameCharactersChannel( game ); }
 
-    received: function(data) {
-      // Called when there's incoming data on the websocket for this channel
-      console.log(`game: ${game.id}`, data);
-      switch( data.status ) {
-        case "joined": $(`#character-list[data-game='${game.id}']`).append(data.characterHtml); break;
-        case "left": $(`#character-list li[data-character='${data.character.id}']`).remove(); break;
-      }
-    }
-
-  });
-
-  App[`character${character.id}`] = App.cable.subscriptions.create({ channel: "CharacterChannel", character: character.id },{
-    connected: function(){
-      // Called when the subscription is ready for use on the server
-      console.log(`character:${character.id}`, 'connected');
-    },
-
-    disconnected: function() {
-      // Called when the subscription has been terminated by the server
-      console.log(`character:${character.id}`, 'disconnected');
-    },
-
-    received: function(data) {
-      // Called when there's incoming data on the websocket for this channel
-      console.log(`character: ${character.id}`, data);
-      switch( data.status ) {
-        case "kicked":
-          alert( "you were kicked out" );
-          document.location.href="/"; //redirect home
-          break;
-      }
-    }
-
-  });
 
   $(document).on('turbolinks:load', function() {
     $("#character-list").on('click', '.character-remove', function(event) {
-      console.log( 'ohai' );
       $target = $(event.currentTarget);
-      console.log($target.parents('li').data().character);
 
-      App[`game${game.id}`].send({
+      App["gameCharacters"].send({
         characterId: $target.parents('li').data().character,
         action: "kick"
       });
