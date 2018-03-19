@@ -22,11 +22,15 @@
   <% end %>
 
   <script>
-    $(document).ready(function() {
-      setTimeout(function() {
-        location.reload()
-      }, 20000)
+    const game = <%= @game.to_json.html_safe %>;
+    const character = <%= @character.to_json.html_safe %>;
 
-    })
+    // app/assets/javascript/channels/game.coffee
+    if( typeof activateGameChannel == "function" ) { App["game"] = activateGameChannel( game ); }
+    // app/assets/javascript/channels/character.coffee
+    if( typeof activateCharacterChannel == "function" ) { App["character"] = activateCharacterChannel( character ); }
+    // app/assets/javascript/channels/game_character.coffee
+    if( typeof activateGameCharactersChannel == "function" ) { App["gameCharacters"] = activateGameCharactersChannel( game ); }
+
   </script>
 </div>

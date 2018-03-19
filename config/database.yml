@@ -8,8 +8,9 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
-  host: postgres
-  user: postgres
+  host: <%= ENV['DATA_DB_HOST'] %>
+  user: <%= ENV['DATA_DB_USER'] %>
+  password: <%= ENV['DATA_DB_PASS'] %>
 
 
 development:

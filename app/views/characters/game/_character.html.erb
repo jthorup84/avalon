@@ -1,0 +1,8 @@
+<li data-character="<%=character.id%>"><!--
+  --><%= "#{character.name}" %><!--
+  <% if character == yourself %>
+   -->&nbsp;(you)<!--
+  <% else %>
+  -->&nbsp;<a class="character-remove">Remove</a><!--
+  <% end %>
+--></li>
