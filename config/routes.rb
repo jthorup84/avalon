@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   resource :color, only: :show
   resource :light_setting, only: [:show, :update]
+
+  mount ActionCable.server, at: '/cable'
 end
