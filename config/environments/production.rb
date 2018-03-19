@@ -36,7 +36,7 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
+  config.action_cable.url = "wss://social-deduction.herokuapp.com/cable"
   config.action_cable.allowed_request_origins = [ 'https://social-deduction.herokuapp.com', 'http://social-deduction.herokuapp.com' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -83,6 +83,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.web_socket_server_url = "wss://social-deduction.herokuapp.com/cable"
 end
