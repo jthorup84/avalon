@@ -1,6 +1,9 @@
 default: &default
   adapter: redis
-  url: <%= ENV['REDIS_URL'] %>/
+  url: redis://h:peadb95fccd1c465c2736098f5ddf35dc407d6f1908a7adfb1177a5a3049f071b@ec2-34-237-97-204.compute-1.amazonaws.com:57769
+  host: ec2-34-237-97-204.compute-1.amazonaws.com
+  port: 57769
+  password: peadb95fccd1c465c2736098f5ddf35dc407d6f1908a7adfb1177a5a3049f071b
 
 development:
   <<: *default
