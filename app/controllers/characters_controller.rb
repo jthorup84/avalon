@@ -10,6 +10,7 @@ class CharactersController < ApplicationController
     @character.game_id = game.id # need this so that game is set when cabled to client
     if @character.save
       game.characters << @character
+      game.update owner_id: @character.id if game.owner_id.nil?
       redirect_to character_game_path @character
     else
       render :new

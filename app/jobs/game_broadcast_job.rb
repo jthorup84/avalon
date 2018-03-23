@@ -1,7 +1,7 @@
 class GameBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(object, action)
+  def perform(action, object)
     send(action, object)
   end
 

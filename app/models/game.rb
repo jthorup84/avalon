@@ -1,8 +1,9 @@
 class Game < ActiveRecord::Base
   has_many :characters
+  has_one :owner, class_name: "Character"
   validates_presence_of :bad_number
 
-  after_update { GameBroadcastJob.perform_now self, :updated }
+  after_update { GameBroadcastJob.perform_now :updated, self }
 
   def self.default_scope
     where(arel_table[:created_at].gt(DateTime.now - 1.day))
@@ -21,7 +22,13 @@ class Game < ActiveRecord::Base
   end
 
   def character_count_check
-    GameBroadcastJob.perform_now self, :updated
+    GameBroadcastJob.perform_now :updated, self
+  end
+
+  def is_owner? character
+    puts self.owner
+    puts character
+    self.owner == character
   end
 
   private

@@ -13,5 +13,4 @@ window.activateGameCharactersChannel = (game) ->
       # Called when there's incoming data on the websocket for this channel
       console.log "game: #{game.id}", data
       switch data.status
-        when "joined" then $("#character-list[data-game='#{game.id}']").append(data.characterHtml)
         when "left" then $("#character-list li[data-character='#{data.character.id}']").remove()

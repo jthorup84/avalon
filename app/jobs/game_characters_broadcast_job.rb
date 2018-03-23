@@ -1,20 +1,19 @@
 class GameCharactersBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(object, action)
+  def perform(action, object)
     send(action, object)
   end
 
   def joined(character)
-    ActionCable.server.broadcast "game-#{character.game_id}:characters", characterHtml: render_character(character), status: "joined"
+    game = Game.find_by id: character.game_id
+    game.characters.each do |themself|
+      CharacterBroadcastJob.perform_now :joined, themself, character
+    end
   end
 
   def left(character)
     ActionCable.server.broadcast "game-#{character.game_id}:characters", character: character, status: "left"
   end
 
-  private
-    def render_character(character)
-      ApplicationController.renderer.render partial: 'characters/game/character', locals: { character: character, yourself: nil }
-    end
 end

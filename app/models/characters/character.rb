@@ -2,9 +2,9 @@ class Character < ActiveRecord::Base
   has_one :game
   validates :name, presence: true
 
-  after_create_commit { GameCharactersBroadcastJob.perform_now self, :joined }
-  after_destroy { GameCharactersBroadcastJob.perform_now self, :left }
-  after_destroy { CharacterBroadcastJob.perform_now self, :kicked }
+  after_create_commit { GameCharactersBroadcastJob.perform_now :joined, self }
+  after_destroy { GameCharactersBroadcastJob.perform_now :left, self }
+  after_destroy { CharacterBroadcastJob.perform_now :kicked, self }
   after_destroy :game_count_check
   after_create_commit :game_count_check
 

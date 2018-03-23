@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209233042) do
+ActiveRecord::Schema.define(version: 20180323041521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20171209233042) do
     t.jsonb    "special_bad",  default: []
     t.jsonb    "special_good", default: []
     t.integer  "bad_number",   default: 2,  null: false
+    t.integer  "owner_id"
   end
 
   create_table "light_settings", force: :cascade do |t|

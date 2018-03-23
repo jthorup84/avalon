@@ -1,8 +1,10 @@
-<li data-character="<%=character.id%>"><!--
+<li data-character="<%=character.id%>" style="overflow-wrap: break-word;"><!--
   --><%= "#{character.name}" %><!--
   <% if character == yourself %>
    -->&nbsp;(you)<!--
-  <% else %>
-  -->&nbsp;<a class="character-remove">Remove</a><!--
+  <% elsif game.is_owner? character %>
+   -->&nbsp;(host)<!--
+  <% elsif game.is_owner? yourself %>
+   -->&nbsp;<a class="character-remove">Remove</a><!--
   <% end %>
 --></li>

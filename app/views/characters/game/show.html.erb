@@ -9,7 +9,7 @@
   People who have joined:
   <ul id="character-list" data-game="<%=@game.id%>" >
     <% @game.characters.each do |character| %>
-      <%= render partial: "character", locals: { character: character, yourself: @character } %>
+      <%= render partial: "character", locals: { character: character, yourself: @character, game: @game } %>
     <% end %>
   </ul>
 

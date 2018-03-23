@@ -15,6 +15,7 @@ window.activateCharacterChannel = (character) ->
 
       console.log data.status
       switch data.status
+        when "joined" then $("#character-list[data-game='#{character.game_id}']").append(data.characterHtml)
         when "kicked" then @_kick()
 
     _kick: ->
