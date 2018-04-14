@@ -1,7 +1,10 @@
-<% if character.game.characters.count > 4 %><!--
-  <% if character.game.is_owner? character %>
-    --><p><button type="submit" class="button success">Start Game</button></p><!--
+<div id="game-not-ready">
+  <span class="label primary">Waiting for more characters to join</span>
+</div>
+<div id="game-ready" style="display:none;">
+  <% if game.is_owner? character %>
+    <p><button type="submit" class="button success">Start Game</button></p>
   <% else %>
-    --><div class="callout success small">Waiting for host to start</div><!--
+    <span# class="label success">Waiting for host to start</span>
   <% end %>
---><% end %>
+</div>

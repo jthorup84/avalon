@@ -11,15 +11,11 @@ class GameBroadcastJob < ApplicationJob
       status: "updated",
       dynamic: {
         good_chars: render_good_chars(game),
-        bad_chars: render_bad_chars(game),
-        start: render_start(game)
+        bad_chars: render_bad_chars(game)
       }
   end
 
   private
-    def render_start(game)
-      ApplicationController.renderer.render partial: 'characters/game/start', locals: { game: game }
-    end
     def render_bad_chars(game)
       ApplicationController.renderer.render partial: 'characters/game/bad_chars', locals: { game: game }
     end
