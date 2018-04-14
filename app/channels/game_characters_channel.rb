@@ -4,11 +4,7 @@ class GameCharactersChannel < ApplicationCable::Channel
   end
 
   def kick(payload)
-    puts payload
     character = Character.find_by id: payload["characterId"]
-    puts "bye bye?"
-    puts character
-    puts character.present?
     character.destroy if character.present?
   end
 

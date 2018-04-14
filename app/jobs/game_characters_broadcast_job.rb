@@ -7,6 +7,7 @@ class GameCharactersBroadcastJob < ApplicationJob
 
   def joined(character)
     game = Game.find_by id: character.game_id
+    return unless game
     game.characters.each do |themself|
       CharacterBroadcastJob.perform_now :joined, themself, character
     end

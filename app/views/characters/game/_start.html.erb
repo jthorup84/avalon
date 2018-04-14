@@ -1,1 +1,7 @@
-<% if game.characters.count > 4 %><p><button type="submit" class="button success">Start Game</button></p><% end %>
+<% if character.game.characters.count > 4 %><!--
+  <% if character.game.is_owner? character %>
+    --><p><button type="submit" class="button success">Start Game</button></p><!--
+  <% else %>
+    --><div class="callout success small">Waiting for host to start</div><!--
+  <% end %>
+--><% end %>

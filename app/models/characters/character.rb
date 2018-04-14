@@ -29,7 +29,12 @@ class Character < ActiveRecord::Base
   end
 
   def game_count_check
-    Game.find_by( id: self.game_id ).character_count_check
+    game = Game.find_by( id: self.game_id )
+    if game
+      game.character_count_check
+    else
+      0
+    end
   end
 
   private

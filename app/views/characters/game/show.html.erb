@@ -1,6 +1,10 @@
 <div class="cell">
   <h3>Game Code: <span class="label" style="font-size:1.2em;"><%= @game.code%></span></h3>
-  <%= link_to "Configure", edit_character_game_path, class: 'button' %>
+
+  <% if @game.is_owner? @character %>
+    <%= link_to "Configure", edit_character_game_path, class: 'button' %>
+  <% end %>
+
   <div id="game-bad-chars"><%= render partial: "bad_chars", locals: { game: @game } %></div>
   <div id="game-good-chars"><%= render partial: "good_chars", locals: { game: @game } %></div>
   <p>
@@ -15,7 +19,7 @@
 
   <%= form_for @game do |f| %>
     <%= f.hidden_field :active, value: '1' %>
-    <div id="game-start"><%= render partial: "start", locals: { game: @game } %></div>
+    <div id="game-start"><%= render partial: "start", locals: { game: @game, character: @character } %></div>
   <% end %>
 </div>
 

@@ -6,11 +6,20 @@ class CharactersController < ApplicationController
   def create
     @character = Character.new(character_params)
     check_for_game
+
+    # return if unable to join
     render :new and return if cant_join?
+
     @character.game_id = game.id # need this so that game is set when cabled to client
     if @character.save
+      # if game host is not set, then set it
+      unless game.has_owner?
+        game.owner_id = @character.id
+        game.save
+      end
+
       game.characters << @character
-      game.update owner_id: @character.id if game.owner_id.nil?
+
       redirect_to character_game_path @character
     else
       render :new

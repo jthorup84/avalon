@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   has_many :characters
-  has_one :owner, class_name: "Character"
+  belongs_to :owner, class_name: "Character"
   validates_presence_of :bad_number
 
   after_update { GameBroadcastJob.perform_now :updated, self }
@@ -26,9 +26,11 @@ class Game < ActiveRecord::Base
   end
 
   def is_owner? character
-    puts self.owner
-    puts character
     self.owner == character
+  end
+
+  def has_owner?
+    self.owner != nil
   end
 
   private
