@@ -24,7 +24,10 @@ window.activateGameChannel = (game) ->
         document.getElementById("game-bad-number").innerHTML = data.game.bad_number
         document.getElementById("game-good-chars").innerHTML = data.dynamic.good_chars
         document.getElementById("game-bad-chars").innerHTML = data.dynamic.bad_chars
-        document.getElementById("game-start").innerHTML = data.dynamic.start
+
+      # hide or show game elements
+      $("#game-not-ready")[if data.is_ready then 'hide' else 'show']()
+      $("#game-ready")[if data.is_ready then 'show' else 'hide']()
 
       # Update previous active state
       @_previous_active_state = data.game.active

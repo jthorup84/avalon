@@ -9,6 +9,7 @@ class GameBroadcastJob < ApplicationJob
     ActionCable.server.broadcast "game-#{game.id}",
       game: game,
       status: "updated",
+      is_ready: game.is_ready?,
       dynamic: {
         good_chars: render_good_chars(game),
         bad_chars: render_bad_chars(game)

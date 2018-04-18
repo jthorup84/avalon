@@ -33,6 +33,10 @@ class Game < ActiveRecord::Base
     self.owner != nil
   end
 
+  def is_ready?
+    self.characters.length > 4
+  end
+
   private
     def self.new_code
       letters = ('a'..'z').to_a
