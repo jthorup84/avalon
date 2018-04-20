@@ -20,6 +20,10 @@ class Character < ActiveRecord::Base
     nil
   end
 
+  def message_for_liberal_spy
+    message_for_bad_guy
+  end
+
   def message_for_percival
     nil
   end

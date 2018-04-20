@@ -3,6 +3,10 @@ class SecretHitler < BadGuy
     "#{name} is Secret Hitler."
   end
 
+  def message_for_liberal_spy
+    "#{name} is a bad guy."
+  end
+
   private
     def basic_knowledge
       [

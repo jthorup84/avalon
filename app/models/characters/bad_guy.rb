@@ -15,6 +15,10 @@ class BadGuy < Character
     end
 
     def special_knowledge(characters)
-      characters.collect(&:message_for_bad_guy).compact
+      messages = characters.collect(&:message_for_bad_guy).compact
+      if characters.any?{|c| c.class == LiberalSpy}
+        messages << "One of the bad guys is actually a good guy."
+      end
+      messages
     end
 end

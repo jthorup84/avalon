@@ -17,7 +17,9 @@
     <%= check_box_tag "game[special_good][]", "Merlin", @game.special_good.include?("Merlin") %>
     <%= f.label "Merlin (knows evil, must remain hidden)" %></br>
     <%= check_box_tag "game[special_good][]", "Percival", @game.special_good.include?("Percival") %>
-    <%= f.label "Percival (knows Merlin)" %>
+    <%= f.label "Percival (knows Merlin)" %></br>
+    <%= check_box_tag "game[special_good][]", "LiberalSpy", @game.special_good.include?("LiberalSpy") %>
+    <%= f.label "Liberal Spy (appears bad)" %>
     <h4>Special Bad Characters</h4>
     <%= check_box_tag "game[special_bad][]", "Mordred", (@game.special_bad || []).include?("Mordred") %>
     <%= f.label "Mordred (unknown to Merlin)" %></br>
