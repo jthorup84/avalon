@@ -3,6 +3,10 @@ class Oberon < BadGuy
     "One bad guy is unknown to you."
   end
 
+  def message_for_merlin
+    "#{name} is a bad guy."
+  end
+
   private
     def special_knowledge(characters)
       [
